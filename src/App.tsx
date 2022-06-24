@@ -1,16 +1,26 @@
-import React from "react";
+import { Header } from "./components/Header";
+import { Page, usePage } from "./contexts/Page";
 
-function App() {
+const App: React.FC = () => {
+  const { page } = usePage();
+
+  const renderSwitch = () => {
+    switch (page) {
+      case Page.Articles:
+        return <div>Articles</div>;
+      case Page.Authors:
+        return <div>Authors</div>;
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <div className="header-title">
-          <h1 className="title">Typescript CRUD</h1>
-          <p className="subtitle">With React and TypeORM</p>
-        </div>
-      </header>
+      <Header />
+      {renderSwitch()}
     </div>
   );
-}
+};
 
 export default App;
