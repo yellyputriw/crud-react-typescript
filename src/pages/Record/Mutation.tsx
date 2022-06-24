@@ -1,6 +1,7 @@
 import { Record } from "../../interfaces/RecordEntities";
 import { RecordMutationProps } from "../../interfaces/PagesProps";
 import { RecordNew } from "./New";
+import { RecordEdit } from "./Edit";
 
 export const RecordMutation = <Type extends Record>({
   FormFields,
@@ -8,7 +9,11 @@ export const RecordMutation = <Type extends Record>({
 }: RecordMutationProps<Type>) => {
   return (
     <div className="mutations">
-      <RecordNew FormFields={FormFields} activeRecord={activeRecord} />
+      {activeRecord.id ? (
+        <RecordEdit<Type> FormFields={FormFields} activeRecord={activeRecord} />
+      ) : (
+        <RecordNew<Type> FormFields={FormFields} activeRecord={activeRecord} />
+      )}
     </div>
   );
 };
