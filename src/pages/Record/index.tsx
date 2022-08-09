@@ -28,6 +28,7 @@ export const RecordIndex = <Type extends Record>({
         <RecordMutation<Type>
           FormFields={FormFields}
           activeRecord={activeRecord}
+          apiPath={apiPath}
         />
       </div>
     </div>

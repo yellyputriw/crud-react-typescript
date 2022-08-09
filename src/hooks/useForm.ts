@@ -1,11 +1,12 @@
 import React, { useState } from "react";
+import { Action } from "./useMutation";
 
 export type IChangeElement =
   | HTMLInputElement
   | HTMLSelectElement
   | HTMLTextAreaElement;
 
-export const useForm = <Type>(initialState: Type) => {
+export const useForm = <Type>(initialState: Type, handleAction: Function) => {
   const [formState, setFormState] = useState<Type>(initialState);
 
   const handleChange = (event: React.ChangeEvent<IChangeElement>): void => {
@@ -14,5 +15,10 @@ export const useForm = <Type>(initialState: Type) => {
     setFormState({ ...formState, [name]: parsedValue });
   };
 
-  return { formState, setFormState, handleChange };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    handleAction(formState);
+  };
+
+  return { formState, setFormState, handleChange, handleSubmit };
 };
